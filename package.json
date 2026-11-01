@@ -1,0 +1,13 @@
+{
+  "name": "react-assignments",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Exactspace Technologies React Assignments - Photo Gallery Implementation",
+  "scripts": {
+    "start": "npm --prefix photo-gallery start",
+    "dev": "npm --prefix photo-gallery run dev",
+    "build": "npm --prefix photo-gallery run build",
+    "preview": "npm --prefix photo-gallery run preview",
+    "test": "npm --prefix photo-gallery run test"
+  }
+}

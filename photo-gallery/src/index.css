@@ -1,0 +1,315 @@
+/* Base & Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: #ffffff;
+  color: #1a1a1a;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* App Layout - matches the assignment mockup with photos on left, title on right/top */
+.app-layout {
+  min-height: 100vh;
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 1350px;
+  margin: 0 auto;
+}
+
+.app-main {
+  flex: 1;
+  max-width: 620px;
+}
+
+.app-header {
+  flex-shrink: 0;
+  padding-right: 15%;
+  padding-top: 12px;
+  position: sticky;
+  top: 24px;
+  align-self: flex-start;
+}
+
+.gallery-title {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 2.35rem;
+  font-weight: 700;
+  color: #000000;
+  letter-spacing: -0.5px;
+}
+
+/* Photos Feed */
+.gallery-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.photos-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Photo Item Row */
+.photo-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Thumbnail wrapper */
+.photo-thumbnail-wrapper {
+  width: 200px;
+  height: 135px;
+  flex-shrink: 0;
+  background-color: #f0f0f0;
+  overflow: hidden;
+  position: relative;
+}
+
+.photo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.photo-image.loaded {
+  opacity: 1;
+}
+
+.photo-skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e2e2e2 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.photo-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: #888;
+  background-color: #f7f7f7;
+  padding: 8px;
+  text-align: center;
+}
+
+/* Photo Info (Author + Like Button) */
+.photo-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.photo-author {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 1.05rem;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.photo-author strong {
+  font-weight: normal;
+}
+
+/* Like Button */
+.like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  color: #1877f2;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+  user-select: none;
+}
+
+.like-button:hover {
+  background-color: rgba(24, 119, 242, 0.08);
+}
+
+.like-button:active {
+  transform: scale(0.92);
+}
+
+.like-button:focus-visible {
+  outline: 2px solid #1877f2;
+  outline-offset: 2px;
+}
+
+.liked-bounce {
+  animation: bounce 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.thumbs-up-icon {
+  font-size: 1.35rem;
+  color: #1877f2;
+}
+
+.like-count {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1877f2;
+  min-width: 14px;
+}
+
+/* Status Messages: Loading, Error, End */
+.status-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  margin-top: 16px;
+  border-radius: 6px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.95rem;
+}
+
+.loading-state {
+  color: #555;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #1877f2;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-state {
+  flex-direction: column;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.retry-button {
+  background-color: #1877f2;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 8px;
+}
+
+.retry-button:hover {
+  background-color: #1464cc;
+}
+
+.end-state {
+  color: #4b5563;
+  font-style: italic;
+}
+
+.scroll-sentinel {
+  height: 20px;
+  width: 100%;
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .app-layout {
+    flex-direction: column;
+    padding: 16px;
+    gap: 20px;
+  }
+
+  .app-header {
+    position: static;
+    padding-right: 0;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .gallery-title {
+    font-size: 2rem;
+  }
+
+  .app-main {
+    max-width: 100%;
+  }
+
+  .photo-item {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 14px;
+  }
+
+  .photo-thumbnail-wrapper {
+    width: 100%;
+    height: 220px;
+  }
+
+  .photo-info {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
